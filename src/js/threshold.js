@@ -185,7 +185,7 @@
       'large': '1360px',
       'x-large': '1440px',
     },
-    debug: true,
+    debug: false,
   };
 
 })(jQuery, window, document);

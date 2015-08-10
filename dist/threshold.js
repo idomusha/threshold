@@ -1,6 +1,6 @@
 /*
  *  threshold - v0.0.1
- *  manages window width change
+ *  manages page width change
  *  http://jqueryboilerplate.com
  *
  *  Made by Zeno Rocha
@@ -193,7 +193,7 @@
       'large': '1360px',
       'x-large': '1440px',
     },
-    debug: true,
+    debug: false,
   };
 
 })(jQuery, window, document);
