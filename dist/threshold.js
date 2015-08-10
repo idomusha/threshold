@@ -142,9 +142,9 @@
       if (debug) console.log('####### onChange()');
       var _this = this;
 
-      console.log('>>>>>>>>>>>>>>>>>> On Change: ' + _this.state);
+      if (debug) console.log('state: ' + _this.state);
       if (_this.callbacks[_this.state] !== undefined) {
-        console.log(_this.callbacks[_this.state]);
+        if (debug) console.log(_this.callbacks[_this.state]);
         $.each(_this.callbacks[_this.state], function(i, v) {
           if (typeof v === 'function') {
             v.call();
