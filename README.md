@@ -163,4 +163,4 @@
 
 ## License
 
-[MIT License](http:/mit-license.org/)
+MIT: [http://idomusha.mit-license.org/](http://idomusha.mit-license.org/)
