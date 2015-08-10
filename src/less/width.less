@@ -1,0 +1,46 @@
+/**
+ * ==========================================================================
+ * WIDTH
+ * ========================================================================== */
+
+
+.width-full {
+  width: 100%;
+  position: relative;
+}
+
+.width-fixed {
+  width: @page-width-x-large;
+  position: relative;
+  margin: 0 auto;
+}
+
+@media @screen-max-large {
+  .width-fixed {
+    width: @page-width-large;
+  }
+}
+
+@media @screen-max-medium {
+  .width-fixed {
+    width: @page-width-medium;
+  }
+}
+
+@media @screen-max-small {
+  .width-fixed {
+    width: @page-width-small;
+  }
+}
+
+@media @screen-max-x-small {
+  .width-fixed {
+    width: @page-width-x-small;
+  }
+}
+
+@media @screen-max-mobile {
+  .width-fixed {
+    width: @page-width-mobile;
+  }
+}

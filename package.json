@@ -1,0 +1,56 @@
+{
+  "name": "threshold",
+  "version": "0.0.1",
+  "description": "manages page width change",
+  "keywords": [
+    "jquery-plugin",
+    "jquery",
+    "boilerplate",
+    "plugins"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/idomusha/jquery-plugin-boilerplate.git"
+  },
+  "bugs": {
+    "url": "https://github.com/idomusha/jquery-plugin-boilerplate/issues"
+  },
+  "author": {
+    "name": "Zeno Rocha",
+    "email": "zno.rocha@gmail.com",
+    "url": "https://github.com/zenorocha"
+  },
+  "homepage": "http://jqueryboilerplate.com",
+  "contributors": [
+    {
+      "name": "Zeno Rocha",
+      "email": "zno.rocha@gmail.com",
+      "url": "https://github.com/zenorocha"
+    },
+    {
+      "name": "Addy Osmani",
+      "email": "addyosmani@gmail.com",
+      "url": "https://github.com/addyosmani"
+    },
+    {
+      "name": "Helder Santana",
+      "email": "heldr@me.com",
+      "url": "https://github.com/heldr"
+    },
+    {
+      "name": "idomusha",
+      "email": "idomusha@gmail.com",
+      "url": "https://github.com/idomusha"
+    }
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "matchdep": "~0.3.0",
+    "grunt-contrib-concat": "^0.5.1",
+    "grunt-contrib-less": "~1.0.1",
+    "grunt-autoprefixer": "~3.0.3",
+    "grunt-contrib-uglify": "^0.9.1",
+    "grunt-contrib-watch": "^0.6.1"
+  }
+}

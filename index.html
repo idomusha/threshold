@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>jQuery plugin Boilerplate</title>
+
+		<link href="dist/threshold.css" rel="stylesheet">
+
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+		<script src="dist/threshold.js"></script>
+	</head>
+	<body>
+		<header class="width-full">
+			<div class="width-fixed">
+				<span class="show-x-large">x-large</span>
+				<span class="show-large">large</span>
+				<span class="show-medium">medium</span>
+				<span class="show-small">small</span>
+				<span class="show-x-small">x-small</span>
+				<span class="show-mobile">mobile</span>
+			</div>
+		</header>
+		<div class="width-full">
+			<div class="width-fixed" id="console">
+				&nbsp
+			</div>
+		</div>
+		<footer class="width-full">
+			<div class="width-fixed">
+				&nbsp
+			</div>
+		</footer>
+		<script>
+			$(function() {
+				Threshold({
+                    widths: {
+                        'mobile': '100%',
+                        'x-small': '740px',
+                        'small': '920px',
+                        'medium': '1220px',
+                        'large': '1360px',
+                        'x-large': '1440px',
+                    }
+                });
+				console.log($(window).data('Threshold'));
+                $(window).data('Threshold').after('x-small', function() {
+					$('#console').append('<p>x-small: an awesome callback!</p>');
+				});
+                $(window).data('Threshold').after('x-small', function() {
+                    $('#console').append('<p>x-small: an another awesome callback!</p>');
+                });
+                $(window).data('Threshold').after('mobile', function() {
+                    $('#console').append('<p>mobile</p>');
+                });
+			});
+
+
+		</script>
+	</body>
+</html>
