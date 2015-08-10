@@ -31,6 +31,7 @@
 		</footer>
 		<script>
 			$(function() {
+
 				Threshold({
                     widths: {
                         'mobile': '100%',
@@ -41,7 +42,7 @@
                         'x-large': '1440px',
                     }
                 });
-				console.log($(window).data('Threshold'));
+
                 $(window).data('Threshold').after('x-small', function() {
 					$('#console').append('<p>x-small: an awesome callback!</p>');
 				});
@@ -51,6 +52,7 @@
                 $(window).data('Threshold').after('mobile', function() {
                     $('#console').append('<p>mobile</p>');
                 });
+
 			});
 
 
