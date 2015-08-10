@@ -67,8 +67,7 @@
       var _this = this;
 
       _this.window.on('resize' + '.' + _this._name, function() {
-        console.log('resize' + '.' + _this._name);
-        console.log(_this);
+        if (debug) console.log('----------- resize' + '.' + _this._name);
         _this.reset();
       });
     },
@@ -81,14 +80,14 @@
     },
 
     reset: function() {
-      if (debug) console.log('####### reset()');
+      if (debug) console.log('########### reset()');
       var _this = this;
 
       _this.unset(true);
     },
 
     unset: function(reset) {
-      if (debug) console.log('####### unset()');
+      if (debug) console.log('########### unset()');
       var _this = this;
 
       var classes = _this.$html.attr('class').split(' ').filter(function(c) {
@@ -103,7 +102,7 @@
     },
 
     set: function() {
-      if (debug) console.log('####### set()');
+      if (debug) console.log('########### set()');
       var _this = this;
 
       // This will prevent JavaScript from calculating pixels for the child element.
@@ -139,12 +138,12 @@
     },
 
     onChange: function() {
-      if (debug) console.log('####### onChange()');
+      if (debug) console.log('########### onChange()');
       var _this = this;
 
-      console.log('>>>>>>>>>>>>>>>>>> On Change: ' + _this.state);
+      if (debug) console.log('state: ' + _this.state);
       if (_this.callbacks[_this.state] !== undefined) {
-        console.log(_this.callbacks[_this.state]);
+        if (debug) console.log(_this.callbacks[_this.state]);
         $.each(_this.callbacks[_this.state], function(i, v) {
           if (typeof v === 'function') {
             v.call();
@@ -156,7 +155,7 @@
     },
 
     after: function(state, callback) {
-      if (debug) console.log('####### after()');
+      if (debug) console.log('########### after()');
       var _this = this;
 
       // checks if state is a valid state (in default settings)
