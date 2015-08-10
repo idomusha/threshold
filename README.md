@@ -150,7 +150,12 @@
 	});
 	```
 
-### Authors
+## You can also grab Both using bower:
+```
+	bower install threshold --save
+```
+
+#### Authors
 
 [![idomusha](https://fr.gravatar.com/userimage/43584317/49cfb592a2054e9c39c5dc195e5ea419.png?size=70)](https://github.com/idomusha) |
 --- |
