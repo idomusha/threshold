@@ -1,6 +1,6 @@
 {
   "name": "threshold",
-  "version": "0.0.1",
+  "version": "0.2.0",
   "description": "manages page width change",
   "keywords": [
     "jquery-plugin",
