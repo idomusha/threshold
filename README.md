@@ -41,6 +41,9 @@
 	$(window).data('Threshold').after(['large', 'x-large'], function() {
 		$('#console').append('<p>[large] OR [x-large] callback for window width >= 1360px</p>');
 	});
+	$(window).data('Threshold').after('all', function() {
+		$('#console').append('<p>[all] callback for all thresholds</p>');
+	});
 	```
 
 5. Override default values [OPTIONAL]:
