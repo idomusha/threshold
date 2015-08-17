@@ -15,15 +15,15 @@
 
 /* steps
  * ========================================================================== */
-@step-min-x-large: (@page-width-x-large + 60*2);        // 1600 --> 1480
-@step-max-large: (@page-width-x-large + 60*2 - 1);
-@step-min-large: (@page-width-large + 40*2);            // 1440 --> 1360
-@step-max-medium: (@page-width-large + 40*2 - 1);
-@step-min-medium: (@page-width-medium + 30*2);          // 1280 --> 1220
-@step-max-small: (@page-width-medium + 30*2 - 1);
-@step-min-small: (@page-width-small + 20*2);            // 960 --> 920
-@step-max-x-small: (@page-width-small + 20*2 - 1);
-@step-min-x-small: (@page-width-x-small);               // 740
+@step-min-x-large: (@page-width-x-large + 2*60);        // 1600 --> 1480 (page) + 2*60 (min auto margin)
+@step-max-large: (@page-width-x-large + 2*60 - 1);
+@step-min-large: (@page-width-large + 2*40);            // 1440 --> 1360 (page) + 2*40 (min auto margin)
+@step-max-medium: (@page-width-large + 2*40 - 1);
+@step-min-medium: (@page-width-medium + 2*30);          // 1280 --> 1220 (page) + 2*30 (min auto margin)
+@step-max-small: (@page-width-medium + 2*30 - 1);
+@step-min-small: (@page-width-small + 2*20);            // 960 --> 920 (page) + 2*20 (min auto margin)
+@step-max-x-small: (@page-width-small + 2*20 - 1);
+@step-min-x-small: (@page-width-x-small);               // 740 (page) + 0 (min auto margin)
 @step-max-mobile: (@page-width-x-small - 1);
 
 

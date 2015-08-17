@@ -113,7 +113,7 @@
       var obj = _this.settings.widths;
       for (var prop in obj) {
         if (obj.hasOwnProperty(prop)) {
-          //if (debug) console.log(prop + ' = ' + obj[prop]);
+          if (debug) console.log(prop + ' = ' + obj[prop]);
           var name = prop;
           var width = obj[prop];
           if (_this.width === width) {
@@ -158,17 +158,26 @@
       if (debug) console.log('########### after()');
       var _this = this;
 
+      // checks if state is an array
+      if (state instanceof Array) {
+        for (var i = 0; i < state.length; i++) {
+          _this.after(state[i], callback);
+        }
+        return;
+      }
+
       // checks if state is a valid state (in default settings)
       if (_this.settings.widths.hasOwnProperty(state)) {
         // checks if one or more callbacks already exist
         if (_this.callbacks[state] === undefined) {
           _this.callbacks[state] = [];
         }
-
+        // store callback
         _this.callbacks[state].push(callback);
       }
 
-      if (debug) console.log(_this.callbacks);
+      if (debug) console.log('for', state);
+      if (debug) console.log('callbacks', _this.callbacks);
       if (state === _this.state) {
         _this.onChange.call(_this);
       }
@@ -190,9 +199,9 @@
       'small': '920px',
       'medium': '1220px',
       'large': '1360px',
-      'x-large': '1440px',
+      'x-large': '1480px',
     },
-    debug: false,
+    debug: true,
   };
 
 })(jQuery, window, document);
