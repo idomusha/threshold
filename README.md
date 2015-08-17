@@ -30,7 +30,16 @@
 
 	```javascript
 	$(window).data('Threshold').after('mobile', function() {
-		console.log('an awesome callback!');
+		$('#console').append('<p>[mobile]</p>');
+	});
+	$(window).data('Threshold').after('x-small', function() {
+		$('#console').append('<p>[x-small] an awesome callback!</p>');
+	});
+	$(window).data('Threshold').after('x-small', function() {
+		$('#console').append('<p>[x-small] an another awesome callback!</p>');
+	});
+	$(window).data('Threshold').after(['large', 'x-large'], function() {
+		$('#console').append('<p>[large] OR [x-large] callback for window width >= 1360px</p>');
 	});
 	```
 
