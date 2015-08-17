@@ -10,6 +10,8 @@
   'use strict';
 
   var pluginName = 'Threshold';
+  var timer = 0;
+  var interval;
   var debug;
 
   function Plugin(options) {
@@ -122,7 +124,14 @@
       _this.$html.addClass(_this.settings.class + '-' + _this.state);
 
       if (_this.previousState !== _this.state) {
-        _this.onChange.call(_this);
+        /*clearInterval(_this.interval);
+        _this.interval = setInterval(function() {
+          if (_this.timer == 5) {*/
+            _this.onChange.call(_this);
+            /*clearInterval(_this.interval);
+          }
+          _this.timer++;
+        }, 100);*/
       } else {
         _this.previousState = _this.state;
       }
@@ -135,15 +144,25 @@
 
       if (debug) console.log('state: ' + _this.state);
       if (_this.callbacks[_this.state] !== undefined) {
-        if (debug) console.log(_this.callbacks[_this.state]);
-        $.each(_this.callbacks[_this.state], function(i, v) {
-          if (typeof v === 'function') {
-            v.call();
-          }
-        });
+        _this.call(_this.callbacks[_this.state]);
+      }
+
+      if (_this.callbacks.all !== undefined) {
+        _this.call(_this.callbacks.all);
       }
 
       _this.previousState = _this.state;
+    },
+
+    call: function(state) {
+      if (debug) console.log('########### onChange()');
+
+      if (debug) console.log(state);
+      $.each(state, function(i, v) {
+        if (typeof v === 'function') {
+          v.call();
+        }
+      });
     },
 
     after: function(state, callback) {
@@ -159,20 +178,40 @@
       }
 
       // checks if state is a valid state (in default settings)
-      if (_this.settings.widths.hasOwnProperty(state)) {
-        // checks if one or more callbacks already exist
-        if (_this.callbacks[state] === undefined) {
-          _this.callbacks[state] = [];
-        }
-        // store callback
-        _this.callbacks[state].push(callback);
+      if (_this.settings.widths.hasOwnProperty(state) || state === 'all') {
+        _this.store(state, callback)
       }
 
       if (debug) console.log('for', state);
       if (debug) console.log('callbacks', _this.callbacks);
-      if (state === _this.state) {
-        _this.onChange.call(_this);
+      if (state === _this.state || state === 'all') {
+        // Clear prev counter, if exist.
+        if (_this.interval != null) {
+          clearInterval(this.interval);
+        }
+        // init timer
+        _this.timer = 0;
+        _this.interval = setInterval(function() {
+          if (_this.timer == 1) {
+            _this.onChange.call(_this);
+            clearInterval(_this.interval);
+            _this.interval = null;
+          }
+          _this.timer++;
+        }.bind(_this), 100);  // Important to .bind(this) so that context will remain consistent.
       }
+    },
+
+    store: function(state, callback) {
+      if (debug) console.log('########### store()');
+      var _this = this;
+
+      // checks if one or more callbacks already exist
+      if (_this.callbacks[state] === undefined) {
+        _this.callbacks[state] = [];
+      }
+      // store callback
+      _this.callbacks[state].push(callback);
     },
 
   });
@@ -186,14 +225,14 @@
   window[ pluginName ].defaults = {
     class: 'window',
     widths: {
-      'mobile': '100%',
-      'x-small': '740px',
-      'small': '920px',
-      'medium': '1220px',
-      'large': '1360px',
       'x-large': '1480px',
+      'large': '1360px',
+      'medium': '1220px',
+      'small': '920px',
+      'x-small': '740px',
+      'mobile': '100%',
     },
-    debug: false,
+    debug: true,
   };
 
 })(jQuery, window, document);

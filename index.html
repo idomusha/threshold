@@ -34,12 +34,12 @@
 
 				Threshold({
                     widths: {
-                        'mobile': '100%',
-                        'x-small': '740px',
-                        'small': '920px',
-                        'medium': '1220px',
-                        'large': '1360px',
-                        'x-large': '1480px',
+						'x-large': '1480px',
+						'large': '1360px',
+						'medium': '1220px',
+						'small': '920px',
+						'x-small': '740px',
+						'mobile': '100%',
                     }
                 });
 
@@ -54,6 +54,9 @@
                 });
 				$(window).data('Threshold').after(['large', 'x-large'], function() {
 					$('#console').append('<p>[large] OR [x-large] callback for window width >= 1360px</p>');
+				});
+				$(window).data('Threshold').after(['all'], function() {
+					$('#console').append('<p>[all] callback for all thresholds</p>');
 				});
 
 			});

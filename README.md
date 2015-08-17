@@ -48,12 +48,12 @@
 	```javascript
 	Threshold({
 		widths: {
-			'mobile': '100%',
-			'x-small': '740px',
-			'small': '920px',
-			'medium': '1220px',
+			'x-large': '1480px',
 			'large': '1360px',
-			'x-large': '1440px',
+			'medium': '1220px',
+			'small': '920px',
+			'x-small': '740px',
+			'mobile': '100%',
 		}
 	});
 	```
