@@ -71,7 +71,7 @@ module.exports = function(grunt) {
         },
         src: ['src/less/demo.less'],
         dest: 'dist/demo.css',
-      }
+      },
     },
 
     /**
@@ -90,18 +90,18 @@ module.exports = function(grunt) {
       production: {
         src: 'dist/threshold.min.css',
         dest: 'dist/threshold.min.css',
-      }
+      },
     },
 
     // Minify definitions
     uglify: {
-      my_target: {
+      default: {
         src: ['dist/threshold.js'],
         dest: 'dist/threshold.min.js',
       },
       options: {
         banner: '<%= meta.banner %>',
-      }
+      },
     },
 
     // watch for changes to source
