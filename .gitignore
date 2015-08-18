@@ -88,5 +88,8 @@ wp-content/plugins/hello.php
 # ignore node/grunt dependency directories
 node_modules/
 
+# ignore bower dependency directories
+#bower_components/
+
 # ignore wp-config file as it stores password
 wp-config.php
