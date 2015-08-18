@@ -1,17 +1,9 @@
-/**
- * threshold - v0.0.1
- * manages window width change
- *
- * Under MIT License
- */
-
 ;
+
 (function($, window, document, undefined) {
   'use strict';
 
   var pluginName = 'Threshold';
-  var timer = 0;
-  var interval;
   var debug;
 
   function Plugin(options) {
@@ -124,14 +116,7 @@
       _this.$html.addClass(_this.settings.class + '-' + _this.state);
 
       if (_this.previousState !== _this.state) {
-        /*clearInterval(_this.interval);
-        _this.interval = setInterval(function() {
-          if (_this.timer == 5) {*/
-            _this.onChange.call(_this);
-            /*clearInterval(_this.interval);
-          }
-          _this.timer++;
-        }, 100);*/
+        _this.onChange.call(_this);
       } else {
         _this.previousState = _this.state;
       }
@@ -174,12 +159,13 @@
         for (var i = 0; i < state.length; i++) {
           _this.after(state[i], callback);
         }
+
         return;
       }
 
       // checks if state is a valid state (in default settings)
       if (_this.settings.widths.hasOwnProperty(state) || state === 'all') {
-        _this.store(state, callback)
+        _this.store(state, callback);
       }
 
       if (debug) console.log('for', state);
@@ -189,6 +175,7 @@
         if (_this.interval != null) {
           clearInterval(this.interval);
         }
+
         // init timer
         _this.timer = 0;
         _this.interval = setInterval(function() {
@@ -197,8 +184,11 @@
             clearInterval(_this.interval);
             _this.interval = null;
           }
+
           _this.timer++;
-        }.bind(_this), 100);  // Important to .bind(this) so that context will remain consistent.
+        }.bind(_this), 100);
+
+        // Important to .bind(this) so that context will remain consistent.
       }
     },
 
@@ -210,6 +200,7 @@
       if (_this.callbacks[state] === undefined) {
         _this.callbacks[state] = [];
       }
+
       // store callback
       _this.callbacks[state].push(callback);
     },
