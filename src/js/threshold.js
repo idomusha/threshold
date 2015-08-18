@@ -223,7 +223,7 @@
       'x-small': '740px',
       'mobile': '100%',
     },
-    debug: true,
+    debug: false,
   };
 
 })(jQuery, window, document);

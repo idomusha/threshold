@@ -6,14 +6,8 @@
  *  Made by idomusha
  *  Under MIT License
  */
-/**
- * threshold - v0.0.1
- * manages window width change
- *
- * Under MIT License
- */
-
 ;
+
 (function($, window, document, undefined) {
   'use strict';
 
@@ -130,14 +124,7 @@
       _this.$html.addClass(_this.settings.class + '-' + _this.state);
 
       if (_this.previousState !== _this.state) {
-        /*clearInterval(_this.interval);
-        _this.interval = setInterval(function() {
-          if (_this.timer == 5) {*/
         _this.onChange.call(_this);
-        /*clearInterval(_this.interval);
-      }
-      _this.timer++;
-    }, 100);*/
       } else {
         _this.previousState = _this.state;
       }
@@ -244,7 +231,7 @@
       'x-small': '740px',
       'mobile': '100%',
     },
-    debug: true,
+    debug: false,
   };
 
 })(jQuery, window, document);
