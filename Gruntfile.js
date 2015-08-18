@@ -48,18 +48,7 @@ module.exports = function(grunt) {
           strictMath: true,
         },
         src: ['src/less/threshold.less'],
-        dest: 'dist/threshold.css',
-      },
-      demo: {
-        options: {
-          compress: false,
-          cleancss: false,
-          ieCompact: true,
-          sourceMap: true,
-          strictMath: true,
-        },
-        src: ['src/less/demo.less'],
-        dest: 'dist/demo.css',
+        dest: 'dist/threshold.css'
       },
       production: {
         options: {
@@ -72,6 +61,17 @@ module.exports = function(grunt) {
         src: ['src/less/threshold.less'],
         dest: 'dist/threshold.min.css',
       },
+      demo: {
+        options: {
+          compress: false,
+          cleancss: false,
+          ieCompact: true,
+          sourceMap: true,
+          strictMath: true,
+        },
+        src: ['src/less/demo.less'],
+        dest: 'dist/demo.css',
+      }
     },
 
     /**
@@ -80,13 +80,17 @@ module.exports = function(grunt) {
 		 * https://github.com/nDmitry/grunt-autoprefixer
 		 */
     autoprefixer: {
-      my_target: {
-        options: {
-          browsers: ['last 2 version', 'Firefox >= 24', 'safari 6', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'],
-        },
+      options: {
+        browsers: ['last 2 version', 'safari 6', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'],
+      },
+      development: {
         src: 'dist/threshold.css',
         dest: 'dist/threshold.css',
       },
+      production: {
+        src: 'dist/threshold.min.css',
+        dest: 'dist/threshold.min.css',
+      }
     },
 
     // Minify definitions
@@ -97,7 +101,7 @@ module.exports = function(grunt) {
       },
       options: {
         banner: '<%= meta.banner %>',
-      },
+      }
     },
 
     // watch for changes to source
@@ -110,7 +114,7 @@ module.exports = function(grunt) {
 
   });
 
-  grunt.registerTask('build', ['less:development', 'less:production', 'less:demo', 'autoprefixer', 'concat', 'uglify']);
+  grunt.registerTask('build', ['less:development', 'autoprefixer:development', 'less:production', 'autoprefixer:production', 'less:demo', 'concat', 'uglify']);
   grunt.registerTask('default', ['build']);
 
 };

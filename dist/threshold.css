@@ -33,17 +33,14 @@
 /* Box sizing enabled
  * ========================================================================== */
 html {
-  -moz-box-sizing: border-box;
-       box-sizing: border-box;
+  box-sizing: border-box;
 }
 * {
-  -moz-box-sizing: inherit;
-       box-sizing: inherit;
+  box-sizing: inherit;
 }
 *::before,
 *::after {
-  -moz-box-sizing: inherit;
-       box-sizing: inherit;
+  box-sizing: inherit;
 }
 /*
  * Remove text-shadow in selection highlight:
