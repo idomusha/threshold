@@ -50,6 +50,17 @@ module.exports = function(grunt) {
         src: ['src/less/threshold.less'],
         dest: 'dist/threshold.css',
       },
+      demo: {
+        options: {
+          compress: false,
+          cleancss: false,
+          ieCompact: true,
+          sourceMap: true,
+          strictMath: true,
+        },
+        src: ['src/less/demo.less'],
+        dest: 'dist/demo.css',
+      },
       production: {
         options: {
           compress: true,
@@ -59,7 +70,7 @@ module.exports = function(grunt) {
           strictMath: true,
         },
         src: ['src/less/threshold.less'],
-        dest: 'dist/threshold.css',
+        dest: 'dist/threshold.min.css',
       },
     },
 
@@ -99,7 +110,7 @@ module.exports = function(grunt) {
 
   });
 
-  grunt.registerTask('build', ['less:development', 'autoprefixer', 'concat', 'uglify']);
+  grunt.registerTask('build', ['less:development', 'less:production', 'less:demo', 'autoprefixer', 'concat', 'uglify']);
   grunt.registerTask('default', ['build']);
 
 };
