@@ -12,7 +12,6 @@
   'use strict';
 
   var pluginName = 'Threshold';
-  var debug;
 
   function Plugin(options) {
 
@@ -21,9 +20,9 @@
     this._defaults = window[ pluginName ].defaults;
     this.settings = $.extend({}, this._defaults, options);
 
-    debug = this.settings.debug;
-    if (debug) console.log('defaults', this._defaults);
-    if (debug) console.log('settings', this.settings);
+    this._debug = this.settings.debug;
+    if (this._debug) console.log('defaults', this._defaults);
+    if (this._debug) console.log('settings', this.settings);
 
     this.init();
   }
@@ -61,7 +60,7 @@
       var _this = this;
 
       _this.window.on('resize' + '.' + _this._name, function() {
-        if (debug) console.log('----------- resize' + '.' + _this._name);
+        if (this._debug) console.log('----------- resize' + '.' + _this._name);
         _this.reset();
       });
     },
@@ -74,14 +73,14 @@
     },
 
     reset: function() {
-      if (debug) console.log('########### reset()');
+      if (this._debug) console.log('########### reset()');
       var _this = this;
 
       _this.unset(true);
     },
 
     unset: function(reset) {
-      if (debug) console.log('########### unset()');
+      if (this._debug) console.log('########### unset()');
       var _this = this;
 
       var classes = _this.$html.attr('class').split(' ').filter(function(c) {
@@ -96,7 +95,7 @@
     },
 
     set: function() {
-      if (debug) console.log('########### set()');
+      if (this._debug) console.log('########### set()');
       var _this = this;
 
       // This will prevent JavaScript from calculating pixels for the child element.
@@ -107,7 +106,7 @@
       var obj = _this.settings.widths;
       for (var prop in obj) {
         if (obj.hasOwnProperty(prop)) {
-          if (debug) console.log(prop + ' = ' + obj[prop]);
+          if (this._debug) console.log(prop + ' = ' + obj[prop]);
           var name = prop;
           var width = obj[prop];
           if (_this.width === width) {
@@ -116,10 +115,10 @@
         }
       }
 
-      if (debug) console.log('width:', _this.width);
-      if (debug) console.log('previousState:', _this.previousState);
-      if (debug) console.log('state:', _this.state);
-      if (debug) console.log('callbacks:', _this.callbacks);
+      if (this._debug) console.log('width:', _this.width);
+      if (this._debug) console.log('previousState:', _this.previousState);
+      if (this._debug) console.log('state:', _this.state);
+      if (this._debug) console.log('callbacks:', _this.callbacks);
 
       _this.$html.addClass(_this.settings.class + '-' + _this.state);
 
@@ -132,10 +131,10 @@
     },
 
     onChange: function() {
-      if (debug) console.log('########### onChange()');
+      if (this._debug) console.log('########### onChange()');
       var _this = this;
 
-      if (debug) console.log('state: ' + _this.state);
+      if (this._debug) console.log('state: ' + _this.state);
       if (_this.callbacks[_this.state] !== undefined) {
         _this.call(_this.callbacks[_this.state]);
       }
@@ -148,9 +147,9 @@
     },
 
     call: function(state) {
-      if (debug) console.log('########### onChange()');
+      if (this._debug) console.log('########### onChange()');
 
-      if (debug) console.log(state);
+      if (this._debug) console.log(state);
       $.each(state, function(i, v) {
         if (typeof v === 'function') {
           v.call();
@@ -159,7 +158,7 @@
     },
 
     after: function(state, callback) {
-      if (debug) console.log('########### after()');
+      if (this._debug) console.log('########### after()');
       var _this = this;
 
       // checks if state is an array
@@ -176,8 +175,8 @@
         _this.store(state, callback);
       }
 
-      if (debug) console.log('for', state);
-      if (debug) console.log('callbacks', _this.callbacks);
+      if (this._debug) console.log('for', state);
+      if (this._debug) console.log('callbacks', _this.callbacks);
       if (state === _this.state || state === 'all') {
         // Clear prev counter, if exist.
         if (_this.interval != null) {
@@ -201,7 +200,7 @@
     },
 
     store: function(state, callback) {
-      if (debug) console.log('########### store()');
+      if (this._debug) console.log('########### store()');
       var _this = this;
 
       // checks if one or more callbacks already exist
