@@ -114,7 +114,9 @@ module.exports = function(grunt) {
 
   });
 
-  grunt.registerTask('build', ['less:development', 'autoprefixer:development', 'less:production', 'autoprefixer:production', 'less:demo', 'concat', 'uglify']);
+  grunt.registerTask('build', ['css',  'js']);
+  grunt.registerTask('css', ['less:development', 'autoprefixer:development', 'less:production', 'autoprefixer:production', 'less:demo']);
+  grunt.registerTask('js', ['concat', 'uglify']);
   grunt.registerTask('default', ['build']);
 
 };
