@@ -19,8 +19,6 @@
 	],
 	"license": "MIT",
   "ignore": [
-	"**/.*",
-	"index.html",
 	"CHANGELOG.md",
 	"CONTRIBUTING.md"
   ],
