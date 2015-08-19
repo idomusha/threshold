@@ -1,6 +1,6 @@
 {
   "name": "threshold",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "manages page width change",
   "keywords": [
     "media-queries",
