@@ -1,5 +1,5 @@
 /*
- *  threshold - v0.3.0
+ *  threshold - v0.3.1
  *  manages page width change
  *  https://github.com/idomusha/threshold
  *
@@ -98,10 +98,14 @@
       if (this._debug) console.log('########### set()');
       var _this = this;
 
+      //_this.width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+      
       // This will prevent JavaScript from calculating pixels for the child element.
       $('.width-full').hide();
       _this.width = $('.width-fixed').eq(0).css('width');
-      $('.width-full').show();
+      $('.width-full').attr('style', function(i, style) {
+        return style.replace(/display[^;]+;?/g, '');
+      });
 
       var obj = _this.settings.widths;
       for (var prop in obj) {
