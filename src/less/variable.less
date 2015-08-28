@@ -23,8 +23,8 @@
 @step-max-small: (@page-width-medium + 2*30 - 1);
 @step-min-small: (@page-width-small + 2*20);            // 960 --> 920 (page) + 2*20 (min auto margin)
 @step-max-x-small: (@page-width-small + 2*20 - 1);
-@step-min-x-small: (@page-width-x-small);               // 740 (page) + 0 (min auto margin)
-@step-max-mobile: (@page-width-x-small - 1);
+@step-min-x-small: (@page-width-x-small + 2*10);        // 760 --> 740 (page) + 2*10 (min auto margin)
+@step-max-mobile: (@page-width-x-small + 2*10 - 1);
 
 
 /* screen
@@ -33,17 +33,17 @@
 @screen-min-large: ~"screen and (min-width:@{step-min-large})";       // min 1360
 @screen-min-medium: ~"screen and (min-width:@{step-min-medium})";     // min 1220
 @screen-min-small: ~"screen and (min-width:@{step-min-small})";       // min 940
-@screen-min-x-small: ~"screen and (min-width:@{step-min-x-small})";   // min 740
+@screen-min-x-small: ~"screen and (min-width:@{step-min-x-small})";   // min 760
 
 @screen-max-large: ~"screen and (max-width:@{step-max-large})";       // max 1479
 @screen-max-medium: ~"screen and (max-width:@{step-max-medium})";     // max 1359
 @screen-max-small: ~"screen and (max-width:@{step-max-small})";       // max 1219
 @screen-max-x-small: ~"screen and (max-width:@{step-max-x-small})";   // max 939
-@screen-max-mobile: ~"screen and (max-width:@{step-max-mobile})";     // max 739
+@screen-max-mobile: ~"screen and (max-width:@{step-max-mobile})";     // max 759
 
 @screen-x-large: ~"screen and (min-width:@{step-min-x-large})";                                       // min 1480
 @screen-large: ~"screen and (min-width:@{step-min-large}) and (max-width:@{step-max-large})";         // min 1360 & max 1479
 @screen-medium: ~"screen and (min-width:@{step-min-medium}) and (max-width:@{step-max-medium})";      // min 1220 & max 1359
 @screen-small: ~"screen and (min-width:@{step-min-small}) and (max-width:@{step-max-small})";         // min 940 & max 1219
-@screen-x-small: ~"screen and (min-width:@{step-min-x-small}) and (max-width:@{step-max-x-small})";   // min 740 & max 939
-@screen-mobile: ~"screen and (max-width:@{step-max-mobile})";                                         // max 739
+@screen-x-small: ~"screen and (min-width:@{step-min-x-small}) and (max-width:@{step-max-x-small})";   // min 760 & max 939
+@screen-mobile: ~"screen and (max-width:@{step-max-mobile})";                                         // max 759 (iPhone 6+ screen size points: 414 x 736)

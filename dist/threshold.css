@@ -150,7 +150,7 @@ h6 {
     width: 740px;
   }
 }
-@media screen and (max-width:739px) {
+@media screen and (max-width:759px) {
   .width-fixed {
     width: 100%;
   }

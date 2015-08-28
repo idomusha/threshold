@@ -42,7 +42,7 @@ header .width-fixed {
     background-color: #b7709f;
   }
 }
-@media screen and (max-width:739px) {
+@media screen and (max-width:759px) {
   header .width-fixed {
     background-color: #ce86bb;
   }
@@ -74,12 +74,12 @@ header .width-fixed {
     display: inline-block;
   }
 }
-@media screen and (min-width:740px) and (max-width:959px) {
+@media screen and (min-width:760px) and (max-width:959px) {
   .show-x-small {
     display: inline-block;
   }
 }
-@media screen and (max-width:739px) {
+@media screen and (max-width:759px) {
   .show-mobile {
     display: inline-block;
   }
