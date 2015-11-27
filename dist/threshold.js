@@ -1,6 +1,6 @@
 /*
  *  threshold - v0.4
- *  manages page width change
+ *  manages window width changes
  *  https://github.com/idomusha/threshold
  *
  *  Made by idomusha
@@ -295,15 +295,15 @@ window.matchMedia || (window.matchMedia = function() {
   };
 
   window[ pluginName ].defaults = {
-    name: 'window',
     ranges: {
       'x-large': ['1600px', -1],      // '1480px'
-      large: ['1440px', '1599px'],  // '1360px'
-      medium: ['1280px', '1439px'], // '1220px'
-      small: ['960px', '1279px'],   // '920px'
+      large: ['1440px', '1599px'],    // '1360px'
+      medium: ['1280px', '1439px'],   // '1220px'
+      small: ['960px', '1279px'],     // '920px'
       'x-small': ['760px', '959px'],  //'740px',
-      mobile: [-1,'759px'],         //'100%',
+      mobile: [-1,'759px'],           //'100%',
     },
+    name: 'window',
     class: false,
     debug: false,
   };
