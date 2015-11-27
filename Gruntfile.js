@@ -28,7 +28,10 @@ module.exports = function(grunt) {
         banner: '<%= meta.banner %>',
       },
       dist: {
-        src: ['src/js/threshold.js'],
+        src: [
+          'bower_components/matchMedia/matchMedia.js',
+          'src/js/threshold.js',
+        ],
         dest: 'dist/threshold.js',
       },
     },
