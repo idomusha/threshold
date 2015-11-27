@@ -35,30 +35,30 @@
 		<script>
 			$(function() {
 
-				Threshold({
+				threshold({
                     widths: {
-						'x-large': '1480px',
-						'large': '1360px',
-						'medium': '1220px',
-						'small': '920px',
-						'x-small': '740px',
-						'mobile': '100%',
+						'x-large': ['1600px', -1],      // '1480px'
+						'large': ['1440px', '1599px'],  // '1360px'
+						'medium': ['1280px', '1439px'], // '1220px'
+						'small': ['960px', '1279px'],   // '920px'
+						'x-small': ['760px', '959px'],  //'740px',
+						'mobile': [-1,'759px'],         //'100%',
                     }
                 });
 
-				$(window).data('Threshold').after('mobile', function() {
+				$(window).data('threshold').after('mobile', function() {
 					$('#console').append('<p>[mobile]</p>');
 				});
-                $(window).data('Threshold').after('x-small', function() {
+                $(window).data('threshold').after('x-small', function() {
 					$('#console').append('<p>[x-small] an awesome callback!</p>');
 				});
-                $(window).data('Threshold').after('x-small', function() {
+                $(window).data('threshold').after('x-small', function() {
                     $('#console').append('<p>[x-small] an another awesome callback!</p>');
                 });
-				$(window).data('Threshold').after(['large', 'x-large'], function() {
-					$('#console').append('<p>[large] OR [x-large] callback for window width >= 1360px</p>');
+				$(window).data('threshold').after(['large', 'x-large'], function() {
+					$('#console').append('<p>[large] OR [x-large] callback for window width >= 1440px</p>');
 				});
-				$(window).data('Threshold').after('all', function() {
+				$(window).data('threshold').after('all', function() {
 					$('#console').append('<p>[all] callback for all thresholds</p>');
 				});
 

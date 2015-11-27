@@ -1,17 +1,73 @@
 /*
- *  threshold - v0.3.1
+ *  threshold - v0.4
  *  manages page width change
  *  https://github.com/idomusha/threshold
  *
  *  Made by idomusha
  *  Under MIT License
  */
+/*! matchMedia() polyfill - Test a CSS media type/query in JS. Authors & copyright (c) 2012: Scott Jehl, Paul Irish, Nicholas Zakas, David Knight. Dual MIT/BSD license */
+
+window.matchMedia || (window.matchMedia = function() {
+    "use strict";
+
+    // For browsers that support matchMedium api such as IE 9 and webkit
+    var styleMedia = (window.styleMedia || window.media);
+
+    // For those that don't support matchMedium
+    if (!styleMedia) {
+        var style       = document.createElement('style'),
+            script      = document.getElementsByTagName('script')[0],
+            info        = null;
+
+        style.type  = 'text/css';
+        style.id    = 'matchmediajs-test';
+
+        script.parentNode.insertBefore(style, script);
+
+        // 'style.currentStyle' is used by IE <= 8 and 'window.getComputedStyle' for all other browsers
+        info = ('getComputedStyle' in window) && window.getComputedStyle(style, null) || style.currentStyle;
+
+        styleMedia = {
+            matchMedium: function(media) {
+                var text = '@media ' + media + '{ #matchmediajs-test { width: 1px; } }';
+
+                // 'style.styleSheet' is used by IE <= 8 and 'style.textContent' for all other browsers
+                if (style.styleSheet) {
+                    style.styleSheet.cssText = text;
+                } else {
+                    style.textContent = text;
+                }
+
+                // Test if media query is true or false
+                return info.width === '1px';
+            }
+        };
+    }
+
+    return function(media) {
+        return {
+            matches: styleMedia.matchMedium(media || 'all'),
+            media: media || 'all'
+        };
+    };
+}());
+
+/*
+ *  threshold - v0.3.2
+ *  manages page width change
+ *  https://github.com/idomusha/threshold
+ *
+ *  Made by idomusha
+ *  Under MIT License
+ */
+
 ;
 
 (function($, window, document, undefined) {
   'use strict';
 
-  var pluginName = 'Threshold';
+  var pluginName = 'threshold';
 
   function Plugin(options) {
 
@@ -83,11 +139,14 @@
       if (this._debug) console.log('########### unset()');
       var _this = this;
 
-      var classes = _this.$html.attr('class').split(' ').filter(function(c) {
-        return c.lastIndexOf(_this.settings.class, 0) !== 0;
-      });
-
-      _this.$html.attr('class', $.trim(classes.join(' ')));
+      if (_this.settings.class) {
+        var classes = _this.$html.attr('class').split(' ').filter(function(c) {
+          return c.lastIndexOf(_this.settings.name, 0) !== 0;
+        });
+        _this.$html.attr('class', $.trim(classes.join(' ')));
+      } else {
+        _this.$html.removeAttr('data-' + _this.settings.name);
+      }
 
       if (reset) {
         _this.set();
@@ -99,13 +158,13 @@
       var _this = this;
 
       //_this.width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
-      
+
       // This will prevent JavaScript from calculating pixels for the child element.
-      $('.width-full').hide();
-      _this.width = $('.width-fixed').eq(0).css('width');
-      $('.width-full').attr('style', function(i, style) {
-        return style.replace(/display[^;]+;?/g, '');
-      });
+      /*$('.width-full').hide();
+       _this.width = $('.width-fixed').eq(0).css('width');
+       $('.width-full').attr('style', function(i, style) {
+       return style.replace(/display[^;]+;?/g, '');
+       });*/
 
       var obj = _this.settings.widths;
       for (var prop in obj) {
@@ -113,18 +172,29 @@
           if (this._debug) console.log(prop + ' = ' + obj[prop]);
           var name = prop;
           var width = obj[prop];
-          if (_this.width === width) {
+          var mq = 'only screen';
+          mq += obj[prop][0] !== -1 ? ' and (min-width: ' + obj[prop][0] + ')' : '';
+          mq += obj[prop][1] !== -1 ? ' and (max-width: ' + obj[prop][1] + ')' : '';
+          if (matchMedia(mq).matches) {
+            console.log('match: ',  _this.state = name);
             _this.state = name;
           }
+          /*if (_this.width === width) {
+           _this.state = name;
+           }*/
         }
       }
 
-      if (this._debug) console.log('width:', _this.width);
+      //if (this._debug) console.log('width:', _this.width);
       if (this._debug) console.log('previousState:', _this.previousState);
       if (this._debug) console.log('state:', _this.state);
       if (this._debug) console.log('callbacks:', _this.callbacks);
 
-      _this.$html.addClass(_this.settings.class + '-' + _this.state);
+      if (_this.settings.class) {
+        _this.$html.addClass(_this.settings.name + '-' + _this.state);
+      } else {
+        _this.$html.attr('data-' + _this.settings.name, _this.state);
+      }
 
       if (_this.previousState !== _this.state) {
         _this.onChange.call(_this);
@@ -225,15 +295,16 @@
   };
 
   window[ pluginName ].defaults = {
-    class: 'window',
+    name: 'window',
     widths: {
-      'x-large': '1480px',
-      'large': '1360px',
-      'medium': '1220px',
-      'small': '920px',
-      'x-small': '740px',
-      'mobile': '100%',
+      'x-large': ['1600px', -1],      // '1480px'
+      large: ['1440px', '1599px'],  // '1360px'
+      medium: ['1280px', '1439px'], // '1220px'
+      small: ['960px', '1279px'],   // '920px'
+      'x-small': ['760px', '959px'],  //'740px',
+      mobile: [-1,'759px'],         //'100%',
     },
+    class: false,
     debug: false,
   };
 

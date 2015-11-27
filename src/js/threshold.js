@@ -1,9 +1,18 @@
+/*
+ *  threshold - v0.3.2
+ *  manages page width change
+ *  https://github.com/idomusha/threshold
+ *
+ *  Made by idomusha
+ *  Under MIT License
+ */
+
 ;
 
 (function($, window, document, undefined) {
   'use strict';
 
-  var pluginName = 'Threshold';
+  var pluginName = 'threshold';
 
   function Plugin(options) {
 
@@ -75,11 +84,14 @@
       if (this._debug) console.log('########### unset()');
       var _this = this;
 
-      var classes = _this.$html.attr('class').split(' ').filter(function(c) {
-        return c.lastIndexOf(_this.settings.class, 0) !== 0;
-      });
-
-      _this.$html.attr('class', $.trim(classes.join(' ')));
+      if (_this.settings.class) {
+        var classes = _this.$html.attr('class').split(' ').filter(function(c) {
+          return c.lastIndexOf(_this.settings.name, 0) !== 0;
+        });
+        _this.$html.attr('class', $.trim(classes.join(' ')));
+      } else {
+        _this.$html.removeAttr('data-' + _this.settings.name);
+      }
 
       if (reset) {
         _this.set();
@@ -91,13 +103,13 @@
       var _this = this;
 
       //_this.width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
-      
+
       // This will prevent JavaScript from calculating pixels for the child element.
-      $('.width-full').hide();
-      _this.width = $('.width-fixed').eq(0).css('width');
-      $('.width-full').attr('style', function(i, style) {
-        return style.replace(/display[^;]+;?/g, '');
-      });
+      /*$('.width-full').hide();
+       _this.width = $('.width-fixed').eq(0).css('width');
+       $('.width-full').attr('style', function(i, style) {
+       return style.replace(/display[^;]+;?/g, '');
+       });*/
 
       var obj = _this.settings.widths;
       for (var prop in obj) {
@@ -105,18 +117,29 @@
           if (this._debug) console.log(prop + ' = ' + obj[prop]);
           var name = prop;
           var width = obj[prop];
-          if (_this.width === width) {
+          var mq = 'only screen';
+          mq += obj[prop][0] !== -1 ? ' and (min-width: ' + obj[prop][0] + ')' : '';
+          mq += obj[prop][1] !== -1 ? ' and (max-width: ' + obj[prop][1] + ')' : '';
+          if (matchMedia(mq).matches) {
+            console.log('match: ',  _this.state = name);
             _this.state = name;
           }
+          /*if (_this.width === width) {
+           _this.state = name;
+           }*/
         }
       }
 
-      if (this._debug) console.log('width:', _this.width);
+      //if (this._debug) console.log('width:', _this.width);
       if (this._debug) console.log('previousState:', _this.previousState);
       if (this._debug) console.log('state:', _this.state);
       if (this._debug) console.log('callbacks:', _this.callbacks);
 
-      _this.$html.addClass(_this.settings.class + '-' + _this.state);
+      if (_this.settings.class) {
+        _this.$html.addClass(_this.settings.name + '-' + _this.state);
+      } else {
+        _this.$html.attr('data-' + _this.settings.name, _this.state);
+      }
 
       if (_this.previousState !== _this.state) {
         _this.onChange.call(_this);
@@ -217,15 +240,16 @@
   };
 
   window[ pluginName ].defaults = {
-    class: 'window',
+    name: 'window',
     widths: {
-      'x-large': '1480px',
-      'large': '1360px',
-      'medium': '1220px',
-      'small': '920px',
-      'x-small': '740px',
-      'mobile': '100%',
+      'x-large': ['1600px', -1],      // '1480px'
+      large: ['1440px', '1599px'],  // '1360px'
+      medium: ['1280px', '1439px'], // '1220px'
+      small: ['960px', '1279px'],   // '920px'
+      'x-small': ['760px', '959px'],  //'740px',
+      mobile: [-1,'759px'],         //'100%',
     },
+    class: false,
     debug: false,
   };
 
