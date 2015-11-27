@@ -9,7 +9,7 @@
   "authors": [
     "idomusha <idomusha@gmail.com>"
   ],
-  "description": "manages page width change",
+  "description": "manages window width changes",
   "main": "src/js/threshold.js",
   "keywords": [
     "media-queries",

@@ -1,7 +1,7 @@
 {
   "name": "threshold",
   "version": "0.4",
-  "description": "manages page width change",
+  "description": "manages window width changes",
   "keywords": [
     "media-queries",
     "width",
