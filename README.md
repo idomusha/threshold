@@ -51,13 +51,12 @@
 
 5. Override default values [OPTIONAL]:
 You can specify how many ranges you want.
-'name' setting allows you to change the default data-attribute name by your own (or class prefix name if 'class' is defined as true).
 'ranges' setting takes as key the width range name (string) and as values the media query begin and end (array). "-1" means no value (for min-width or max-width).
+'name' setting allows you to change the default data-attribute name by your own (or class prefix name if 'class' is defined as true).
 'class' allows you to use a class instead of data-attribute.
 
 	```javascript
 	threshold({
-		name: 'width',						// default: 'window'
 		ranges: {
 			'x-large': ['1600px', -1],      // '1480px'
 			'large': ['1440px', '1599px'],  // '1360px'
@@ -66,6 +65,7 @@ You can specify how many ranges you want.
 			'x-small': ['760px', '959px'],  //'740px',
 			'mobile': [-1,'759px'],         //'100%',
 		},
+		name: 'width',						// default: 'window'
 		class: true							// default: false
 	});
 	```
