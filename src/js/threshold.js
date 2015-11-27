@@ -111,7 +111,7 @@
        return style.replace(/display[^;]+;?/g, '');
        });*/
 
-      var obj = _this.settings.widths;
+      var obj = _this.settings.ranges;
       for (var prop in obj) {
         if (obj.hasOwnProperty(prop)) {
           if (this._debug) console.log(prop + ' = ' + obj[prop]);
@@ -190,7 +190,7 @@
       }
 
       // checks if state is a valid state (in default settings)
-      if (_this.settings.widths.hasOwnProperty(state) || state === 'all') {
+      if (_this.settings.ranges.hasOwnProperty(state) || state === 'all') {
         _this.store(state, callback);
       }
 
@@ -241,7 +241,7 @@
 
   window[ pluginName ].defaults = {
     name: 'window',
-    widths: {
+    ranges: {
       'x-large': ['1600px', -1],      // '1480px'
       large: ['1440px', '1599px'],  // '1360px'
       medium: ['1280px', '1439px'], // '1220px'
