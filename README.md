@@ -1,7 +1,7 @@
-#threshold
+# threshold
 
-## manages window width changes
-- data-attribute 'window' with the width range name as value
+### manages window width changes
+- data-attribute **window** with the width range name as value
 - callback when width range switches to another (which range doesn't matter)
 - callback after switch to a specific range (several callbacks possible)
 
@@ -50,10 +50,11 @@
 	```
 
 5. Override default values [OPTIONAL]:
-You can specify how many ranges you want.
-'ranges' setting takes as key the width range name (string) and as values the media query begin and end (array). "-1" means no value (for min-width or max-width).
-'name' setting allows you to change the default data-attribute name by your own (or class prefix name if 'class' is defined as true).
-'class' allows you to use a class instead of data-attribute.
+
+You can specify how many ranges you want.  
+- **ranges** setting takes as key the width range name (string) and as values the media query begin and end (array). "-1" means no value (for min-width or max-width).  
+- **name** setting allows you to change the default data-attribute name by your own (or class prefix name if 'class' is defined as true).  
+- **class** allows you to use a class instead of data-attribute.
 
 	```javascript
 	threshold({
