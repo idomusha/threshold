@@ -58,16 +58,23 @@ You can specify how many ranges you want.
 
 	```javascript
 	threshold({
-		ranges: {
-			'x-large': ['1600px', -1],      // '1480px'
-			'large': ['1440px', '1599px'],  // '1360px'
-			'medium': ['1280px', '1439px'], // '1220px'
-			'small': ['960px', '1279px'],   // '920px'
-			'x-small': ['760px', '959px'],  //'740px',
-			'mobile': [-1,'759px'],         //'100%',
-		},
-		name: 'width',						// default: 'window'
-		class: true							// default: false
+	
+        // breakpoints (minimum: 2)
+        ranges: {
+          'x-large': ['1600px', -1],        // '1480px'
+          large: ['1440px', '1599px'],      // '1360px'
+          medium: ['1280px', '1439px'],     // '1220px'
+          small: ['960px', '1279px'],       // '920px'
+          'x-small': ['760px', '959px'],    // '740px',
+          mobile: [-1,'759px'],             // '100%',
+        },
+    
+        // data attribute name (or class name prefix) | default: 'window'
+        name: 'width', 
+    
+        // data attribute (false) or class (true) | default: false
+        class: true,
+        
 	});
 	```
 
