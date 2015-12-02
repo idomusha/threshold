@@ -53,8 +53,8 @@
 
 You can specify how many ranges you want.  
 - **ranges** setting takes as key the width range name (string) and as values the media query begin and end (array). "-1" means no value (for min-width or max-width).  
-- **name** setting allows you to change the default data-attribute name by your own (or class prefix name if 'class' is defined as true).  
-- **class** allows you to use a class instead of data-attribute.
+- **name** setting allows you to change the default data attribute name by your own (or class prefix name if 'class' is defined as true).  
+- **class** allows you to use a class instead of data attribute.
 
 	```javascript
 	threshold({
