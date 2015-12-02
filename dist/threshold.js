@@ -177,7 +177,7 @@ window.matchMedia || (window.matchMedia = function() {
           mq += obj[prop][0] !== -1 ? ' and (min-width: ' + obj[prop][0] + ')' : '';
           mq += obj[prop][1] !== -1 ? ' and (max-width: ' + obj[prop][1] + ')' : '';
           if (matchMedia(mq).matches) {
-            console.log('match: ',  _this.state = name);
+            if (this._debug) console.log('match: ',  _this.state = name);
             _this.state = name;
           }
           /*if (_this.width === width) {
