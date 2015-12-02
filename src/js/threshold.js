@@ -85,11 +85,12 @@
       var _this = this;
 
       if (_this.settings.class) {
-        var classes = _this.$html.attr('class').split(' ').filter(function(c) {
-          return c.lastIndexOf(_this.settings.name, 0) !== 0;
-        });
-
-        _this.$html.attr('class', $.trim(classes.join(' ')));
+        if (_this.$html.attr('class') !== undefined) {
+          var classes = _this.$html.attr('class').split(' ').filter(function (c) {
+            return c.lastIndexOf(_this.settings.name, 0) !== 0;
+          });
+          _this.$html.attr('class', $.trim(classes.join(' ')));
+        }
       } else {
         _this.$html.removeAttr('data-' + _this.settings.name);
       }
