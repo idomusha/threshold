@@ -59,7 +59,7 @@
 					$('#console').append('<p>[small] AND [medium]<br>callback after switch to a specific range: >= 960px and < 1280px AND >= 1280px and < 1440px</p>');
 				});
 				$(window).data('threshold').after('large|x-large', function() {
-					$('#console').append('<p>[large] OR [x-large]<br>callback after switch to a specific range: >= 1440px (between >= 1440px OR < 16000px AND >= 1600px)</p>');
+					$('#console').append('<p>[large] OR [x-large]<br>callback after switch to a specific range: >= 1440px ie >= 1440px and < 1600px OR >= 1600px</p>');
 				});
 				$(window).data('threshold').after('all', function() {
 					$('#console').append('<p>[all]<br>callback when width range switches to another</p>');
