@@ -53,13 +53,20 @@
 					$('#console').append('<p>[x-small]<br>callback after switch to a specific range: >= 760px and < 960px (a first callback)</p>');
 				});
                 $(window).data('threshold').after('x-small', function() {
-                    $('#console').append('<p>[x-small]<br>callback after switch to a specific range: >= 760px and < 960px (a second callback)</p>');
+                    $('#console').append('<p>[x-small]<br>other callback after switch to a specific range: >= 760px and < 960px (a second callback)</p>');
                 });
-				$(window).data('threshold').after(['large', 'x-large'], function() {
-					$('#console').append('<p>[large] or [x-large]<br>callback after switch to a specific range: >= 1440px and < 960px</p>');
+				$(window).data('threshold').after(['small', 'medium'], function() {
+					$('#console').append('<p>[small] AND [medium]<br>callback after switch to a specific range: >= 960px and < 1280px AND >= 1280px and < 1440px</p>');
+				});
+				$(window).data('threshold').after('large|x-large', function() {
+					$('#console').append('<p>[large] OR [x-large]<br>callback after switch to a specific range: >= 1440px (between >= 1440px OR < 16000px AND >= 1600px)</p>');
 				});
 				$(window).data('threshold').after('all', function() {
 					$('#console').append('<p>[all]<br>callback when width range switches to another</p>');
+				
+					$('#console').children('p').delay(3000).fadeTo(1000, 0, function(){
+						$(this).remove();
+					})
 				});
 
 			});
