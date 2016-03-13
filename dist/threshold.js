@@ -1,5 +1,5 @@
 /*
- *  threshold - v0.4.0
+ *  threshold - v1.0.0
  *  manages window width changes
  *  https://github.com/idomusha/threshold
  *
@@ -141,9 +141,10 @@ window.matchMedia || (window.matchMedia = function() {
 
       if (_this.settings.class) {
         if (_this.$html.attr('class') !== undefined) {
-          var classes = _this.$html.attr('class').split(' ').filter(function (c) {
+          var classes = _this.$html.attr('class').split(' ').filter(function(c) {
             return c.lastIndexOf(_this.settings.name, 0) !== 0;
           });
+
           _this.$html.attr('class', $.trim(classes.join(' ')));
         }
       } else {
@@ -155,18 +156,13 @@ window.matchMedia || (window.matchMedia = function() {
       }
     },
 
+    /**
+     * set
+     * after init or resize: change state
+     */
     set: function() {
       if (this._debug) console.log('########### set()');
       var _this = this;
-
-      //_this.width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
-
-      // This will prevent JavaScript from calculating pixels for the child element.
-      /*$('.width-full').hide();
-       _this.width = $('.width-fixed').eq(0).css('width');
-       $('.width-full').attr('style', function(i, style) {
-       return style.replace(/display[^;]+;?/g, '');
-       });*/
 
       var obj = _this.settings.ranges;
       for (var prop in obj) {
@@ -181,13 +177,9 @@ window.matchMedia || (window.matchMedia = function() {
             if (this._debug) console.log('match: ',  _this.state = name);
             _this.state = name;
           }
-          /*if (_this.width === width) {
-           _this.state = name;
-           }*/
         }
       }
 
-      //if (this._debug) console.log('width:', _this.width);
       if (this._debug) console.log('previousState:', _this.previousState);
       if (this._debug) console.log('state:', _this.state);
       if (this._debug) console.log('callbacks:', _this.callbacks);
@@ -198,32 +190,95 @@ window.matchMedia || (window.matchMedia = function() {
         _this.$html.attr('data-' + _this.settings.name, _this.state);
       }
 
-      if (_this.previousState !== _this.state) {
-        _this.onChange.call(_this);
-      } else {
-        _this.previousState = _this.state;
-      }
+      _this.check.call(_this);
 
     },
 
-    onChange: function() {
-      if (this._debug) console.log('########### onChange()');
+    /**
+     * get
+     * get callbacks
+     */
+    get: function() {
+      if (this._debug) console.log('########### get()');
       var _this = this;
 
-      if (this._debug) console.log('state: ' + _this.state);
-      if (_this.callbacks[_this.state] !== undefined) {
-        _this.call(_this.callbacks[_this.state]);
+      if (this._debug) console.log('callbacks: ', _this.callbacks);
+
+      var obj = _this.callbacks;
+      for (var prop in obj) {
+        if (obj.hasOwnProperty(prop)) {
+          var name = prop;
+          var value = obj[prop];
+          var _states = [];
+
+          if (this._debug) console.log('name: ', name);
+          if (this._debug) console.log('name.indexOf("|")', name.indexOf('|'));
+
+          if (name.indexOf('|') !== -1) {
+            for (var i = 0; i < name.split('|').length; i++) {
+              _states.push(name.split('|')[i]);
+              if (i === name.split('|').length - 1) {
+
+                if (this._debug) console.log('previousState ', this.previousState);
+                if (this._debug) console.log('_states ', _states);
+                if (this._debug) console.log('_states.indexOf(_this.previousState) ', _states.indexOf(_this.previousState));
+
+                if (_states.indexOf(_this.state) !== -1) {
+                  if (_states.indexOf(_this.previousState) === -1 || _this.previousState === undefined) {
+                    _this.call(_this.callbacks[name]);
+                  }
+                }
+              }
+
+            }
+          } else {
+            if (_this.callbacks[name] !== undefined && name === _this.state) {
+              _this.call(_this.callbacks[name]);
+            }
+          }
+
+        }
       }
 
       if (_this.callbacks.all !== undefined) {
         _this.call(_this.callbacks.all);
       }
 
+    },
+
+    /**
+     * check
+     * check if the current state has a callback to must be call
+     */
+    check: function() {
+      if (this._debug) console.log('########### check()');
+      var _this = this;
+
+      if (_this.previousState !== undefined) {
+        ;
+        if (_this.previousState !== _this.state) {
+          _this.onChange.call(_this);
+        } else {
+          _this.previousState = _this.state;
+        }
+      }
+    },
+
+    onChange: function() {
+      if (this._debug) console.log('########### onChange()');
+      var _this = this;
+
+      if (this._debug) console.log('#####################');
+      if (this._debug) console.log('state: ', _this.state);
+      if (this._debug) console.log('#####################');
+
+      _this.get();
+
       _this.previousState = _this.state;
     },
 
     call: function(state) {
-      if (this._debug) console.log('########### onChange()');
+      if (this._debug) console.log('########### call()');
 
       if (this._debug) console.log(state);
       $.each(state, function(i, v) {
@@ -236,19 +291,60 @@ window.matchMedia || (window.matchMedia = function() {
     after: function(state, callback) {
       if (this._debug) console.log('########### after()');
       var _this = this;
+      var _valid = true;
 
       // checks if state is an array
       if (state instanceof Array) {
+
+        var _states = [];
         for (var i = 0; i < state.length; i++) {
-          _this.after(state[i], callback);
+
+          var _state = state[i];
+          console.log('_state', _state);
+
+          // checks if state is a valid state (in default settings)
+          if (!_this.settings.ranges.hasOwnProperty(state[i])) {
+            _valid = false;
+          }
+
+          if (_state.indexOf('|') !== -1) {
+            for (var i = 0; i < _state.split('|').length; i++) {
+
+              if (!_this.settings.ranges.hasOwnProperty(_state.split('|')[i])) {
+                _valid = false;
+              }
+
+              if (i === _state.split('|').length - 1 && _valid) {
+                _this.store(_state, callback);
+              }
+
+            }
+          } else if (/*i === state.length - 1 && */_valid) {
+            //_state = state.join('|');
+            _this.store(_state, callback);
+          }
+
         }
 
-        return;
-      }
+      } else {
 
-      // checks if state is a valid state (in default settings)
-      if (_this.settings.ranges.hasOwnProperty(state) || state === 'all') {
-        _this.store(state, callback);
+        // checks if state is a valid state (in default settings)
+        if (state.indexOf('|') !== -1) {
+          for (var i = 0; i < state.split('|').length; i++) {
+
+            if (!_this.settings.ranges.hasOwnProperty(state.split('|')[i])) {
+              _valid = false;
+            }
+
+            if (i === state.split('|').length - 1 && _valid) {
+              _this.store(state, callback);
+            }
+
+          }
+        } else if (_this.settings.ranges.hasOwnProperty(state) || state === 'all') {
+          _this.store(state, callback);
+        }
+
       }
 
       if (this._debug) console.log('for', state);
@@ -259,7 +355,7 @@ window.matchMedia || (window.matchMedia = function() {
           clearInterval(this.interval);
         }
 
-        // init timer
+        // init timer : launch callbacks after the last 'after' method invoked
         _this.timer = 0;
         _this.interval = setInterval(function() {
           if (_this.timer == 1) {
@@ -275,7 +371,7 @@ window.matchMedia || (window.matchMedia = function() {
       }
     },
 
-    store: function(state, callback) {
+    store: function(state, callback, states) {
       if (this._debug) console.log('########### store()');
       var _this = this;
 
@@ -286,6 +382,7 @@ window.matchMedia || (window.matchMedia = function() {
 
       // store callback
       _this.callbacks[state].push(callback);
+
     },
 
   });

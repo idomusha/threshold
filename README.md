@@ -32,21 +32,24 @@
 4. Declare callbacks (whenever):
 
 	```javascript
-	$(window).data('threshold').after('mobile', function() {
-		$('#console').append('<p>[mobile]</p>');
-	});
-	$(window).data('threshold').after('x-small', function() {
-		$('#console').append('<p>[x-small] an awesome callback!</p>');
-	});
-	$(window).data('threshold').after('x-small', function() {
-		$('#console').append('<p>[x-small] an another awesome callback!</p>');
-	});
-	$(window).data('threshold').after(['large', 'x-large'], function() {
-		$('#console').append('<p>[large] OR [x-large] callback for window width >= 1360px</p>');
-	});
-	$(window).data('threshold').after('all', function() {
-		$('#console').append('<p>[all] callback for all thresholds</p>');
-	});
+   	$(window).data('threshold').after('mobile', function() {
+        $('#console').append('<p>[mobile]<br>callback after switch to a specific range: < 760px</p>');
+    });
+       $(window).data('threshold').after('x-small', function() {
+        $('#console').append('<p>[x-small]<br>callback after switch to a specific range: >= 760px and < 960px (a first callback)</p>');
+    });
+       $(window).data('threshold').after('x-small', function() {
+           $('#console').append('<p>[x-small]<br>other callback after switch to a specific range: >= 760px and < 960px (a second callback)</p>');
+       });
+    $(window).data('threshold').after(['small', 'medium'], function() {
+        $('#console').append('<p>[small] AND [medium]<br>callback after switch to a specific range: >= 960px and < 1280px AND >= 1280px and < 1440px</p>');
+    });
+    $(window).data('threshold').after('large|x-large', function() {
+        $('#console').append('<p>[large] OR [x-large]<br>callback after switch to a specific range: >= 1440px (between >= 1440px OR < 16000px AND >= 1600px)</p>');
+    });
+    $(window).data('threshold').after('all', function() {
+        $('#console').append('<p>[all]<br>callback when width range switches to another</p>');
+    });
 	```
 
 5. Override default values [OPTIONAL]:
