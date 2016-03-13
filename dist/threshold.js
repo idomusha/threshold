@@ -300,7 +300,6 @@ window.matchMedia || (window.matchMedia = function() {
         for (var i = 0; i < state.length; i++) {
 
           var _state = state[i];
-          console.log('_state', _state);
 
           // checks if state is a valid state (in default settings)
           if (!_this.settings.ranges.hasOwnProperty(state[i])) {
