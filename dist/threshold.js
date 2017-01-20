@@ -54,7 +54,7 @@ window.matchMedia || (window.matchMedia = function() {
 }());
 
 /*
- *  threshold - v0.3.2
+ *  threshold - v1.1.0
  *  manages page width change
  *  https://github.com/idomusha/threshold
  *
